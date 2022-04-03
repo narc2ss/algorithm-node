@@ -1,0 +1,9 @@
+{
+  "name": "algorithm-node",
+  "version": "1.0.0",
+  "description": "알고리즘학습",
+  "main": "none",
+  "repository": "https://github.com/narc2ss/algorithm-node.git",
+  "author": "narc2ss",
+  "license": "MIT"
+}
