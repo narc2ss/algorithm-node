@@ -65,3 +65,45 @@ const same = (arr1, arr2) => {
   return true;
 };
 ```
+
+---
+
+## 빈도수 세기 : 애너그램 도전 과제
+
+두 단어를 입력받고 애너그램 관계인지 파악하는 코드를 작성
+
+내가 시도한 코드
+
+```js
+function validAnagram(string1, string2) {
+  if (string1.length !== string2.length) return false;
+
+  const frequencyStr1 = {};
+  const frequencyStr2 = {};
+
+  for (const el of string1) {
+    frequencyStr1[el] = (frequencyStr1[el] || 0) + 1;
+  }
+  for (const el of string2) {
+    frequencyStr2[el] = (frequencyStr2[el] || 0) + 1;
+  }
+
+  for (const key in frequencyStr1) {
+    if (!(key in frequencyStr2)) return false;
+    if (frequencyStr1[key] !== frequencyStr2[key]) return false;
+  }
+
+  return true;
+}
+
+validAnagram("", ""); // true
+validAnagram("aaz", "zza"); // false
+validAnagram("anagram", "nagaram"); // true
+validAnagram("rat", "car"); // false
+validAnagram("awesome", "awesom"); // false
+validAnagram("amanaplanacanalpanama", "acanalmanplanpamana"); // false
+validAnagram("qwerty", "qeywrt"); // true
+validAnagram("texttwisttime", "timetwisttext"); // true
+```
+
+**&#8594; 여러 데이터가 있어서 서로 비교를 해야 하는 경우 Frequency Counter 패턴을 사용하여 해결할 수 있다.**
