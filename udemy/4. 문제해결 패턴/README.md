@@ -107,3 +107,89 @@ validAnagram("texttwisttime", "timetwisttext"); // true
 ```
 
 **&#8594; 여러 데이터가 있어서 서로 비교를 해야 하는 경우 Frequency Counter 패턴을 사용하여 해결할 수 있다.**
+
+---
+
+## 다중 포인터 패턴 (Multiple Pointers)
+
+인덱스나 위치에 해당하는 포인터나 값을 만든다음 특정 조건에 따라 중간 지점에서부터 시작지점이나 끝 지점이나 양쪽 지점을 향해 이동시키는 것이다.
+
+배열이나 문자열과 같은 일종의 선형 구조나 이중 연결리스트 또는 단일 연결 리스트를 만드는 것이다.
+
+한 쌍의 값이나 조건을 충족시키는 무언가를 찾는다는 것이 중요하다.
+
+[EX] 정수의 **정렬된** 배열을 받아들이는 sumZero라는 함수를 작성하십시오. 함수는 합계가 0인 첫 번째 쌍을 찾아야 합니다. 합계가 0이거나 쌍이 존재하지 않는 경우 `undefined` 또는 두 값을 모두 포함하는 배열을 반환합니다.
+
+```js
+function sumZero(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] + arr[j] === 0) return [arr[i], arr[j]];
+    }
+  }
+}
+
+sumZero([-4, -3, -2, -1, 0, 1, 2, 5]); // [-3, 3]
+```
+
+이 코드는 합계가 0이 되는 값이 없다면 1만큼 이동하여 다른 모든 숫자와 비교하고 이 작업을 계속 진행한다. 첫 번째 루프에서 -4와 일치하는 값이 없다는 것을 알아내기 위해 많은 작업을 수행해야 한다.
+
+따라서 다중 포인터 패턴으로 리팩토링을 수행할 수 있다.
+
+포인터를 시작과 끝으로 두고 합산한 값이 0이라면 한 쌍의 값이 담긴 배열을 반환하고 음수라면 시작 포인터를 증가시키고 양수라면 끝 포인터를 감소시킨다.
+
+```js
+function sumZero(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    let sum = arr[left] + arr[right];
+    if (sum === 0) {
+      return [arr[left], arr[right]];
+    } else if (sum < 0) {
+      left++;
+    } else {
+      right++;
+    }
+  }
+}
+
+sumZero([-4, -3, -2, -1, 0, 1, 2, 3, 5]); // [-3, 3]
+```
+
+---
+
+## 다중 포인터 : 고유값을 세는 도전 과제
+
+[EX] 정렬된 배열을 받아들이고 배열의 고유한 값을 계산하는 countUniqueValues라는 함수를 구현합니다. 배열에 음수가 있을 수 있지만 항상 정렬됩니다.
+
+내가 시도한 코드
+
+```js
+function countUniqueValues(arr) {
+  const result = [];
+
+  for (const el of arr) {
+    if (result[result.length - 1] !== el) result.push(el);
+  }
+
+  return result.length;
+}
+```
+
+강의 솔루션
+
+```js
+function countUniqueValues(arr) {
+  if (arr.length === 0) return 0;
+  var i = 0;
+  for (var j = 1; j < arr.length; j++) {
+    if (arr[i] !== arr[j]) {
+      i++;
+      arr[i] = arr[j];
+    }
+  }
+  return i + 1;
+}
+```
