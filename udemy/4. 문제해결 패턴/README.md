@@ -193,3 +193,90 @@ function countUniqueValues(arr) {
   return i + 1;
 }
 ```
+
+---
+
+## 슬라이딩 윈도우 패턴 (Sliding window)
+
+이 패턴은 배열이나 문자열과 같은 일련의 데이터를 입력하거나 특정 방식으로 연속적인 해당 데이터의 하위 집합을 찾는 경우에 유용하다.
+
+[EX] 정수가 담긴 비열과 정수 한 개를 받는 maxSubarraySum이라는 함수를 작성하세요. 함수는 배열에서 n개의 요소를 더한 최대 값을 출력해야 합니다.
+
+```javascript
+maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 2); // 10
+maxSubarraySum([1, 2, 5, 2, 8, 1, 5], 4); // 17
+maxSubarraySum([4, 2, 1, 6], 1); // 6
+maxSubarraySum([4, 2, 1, 6, 2], 4); // 13
+maxSubarraySum([], 4); // null
+```
+
+내가 시도한 코드
+
+```js
+const maxSubarraySum = (arr, n) => {
+  if (arr.length < n) return null;
+
+  let max = -1;
+  for (let i = 0; i <= arr.length - n; i++) {
+    let temp = 0;
+    for (let j = i; j < i + n; j++) {
+      temp += arr[j];
+    }
+
+    if (temp > max) max = temp;
+  }
+
+  return max;
+};
+```
+
+강의 솔루션
+
+```js
+function maxSubarraySum(arr, num) {
+  if (num > arr.length) {
+    return null;
+  }
+
+  var max = -Infinity;
+  for (let i = 0; i < arr.length - num + 1; i++) {
+    temp = 0;
+    for (let j = 0; j < num; j++) {
+      temp += arr[i + j];
+    }
+    if (temp > max) {
+      max = temp;
+    }
+  }
+  return max;
+}
+```
+
+이 코드는 순진한 접근법이며 O(N^2) 시간을 가진다.
+
+슬라이딩 윈도우 패턴을 적용하면 O(N)시간으로 해결할 수 있다.
+
+우선 배열 시작 요소부터 n까지의 요소의 합을 최대값으로 설정한 후 배열의 n번부터 n개의 합을 구한다 단, 인덱스 값을 증가할때 n개의 합을 새로 연산하는것이 아니라 다음 요소를 더하고 마지막 요소를 빼며 진행한다.
+
+```js
+const maxSubarraySum = (arr, n) => {
+  if (arr.length < n) return null;
+
+  let max = 0;
+  let temp = 0;
+
+  for (let i = 0; i < n; i++) {
+    max += arr[i];
+  }
+
+  temp = max;
+
+  for (let i = n; i < arr.length; i++) {
+    temp = temp - arr[i - n] + arr[i];
+
+    if (temp > max) max = temp;
+  }
+
+  return max;
+};
+```
