@@ -280,3 +280,58 @@ const maxSubarraySum = (arr, n) => {
   return max;
 };
 ```
+
+---
+
+## 분할 정복 패턴 (Divide and Conquer)
+
+> 이후 다양한 알고리즘에서 분할 정복 패턴이 자주 등장하기 때문에 가볍게 다룬다.
+
+여러 알고리즘이 이러한 접근법을 차용하고 있으며 정렬 알고리즘 중 퀵 정렬, 병합 정렬, 이진 탐색은 대표적인 분할 정복의 예시이다.
+
+이 패턴은 주로 배열이나 문자열 같은 큰 규모의 데이터셋을 작은 조각으로 나누어 처리한다.
+
+[EX] 정렬된 정수가 들어있는 배열이 주어집니다. search라는 이름을 가진 함수를 작성하세요 입력값으로 배열과 정수를 받고 정수가 위치한 인덱스를 반환합니다. 배열에 요소가 존재하지 않다면 -1을 반환하세요
+
+```js
+search([1, 2, 3, 4, 5, 6], 4); // 3
+search([1, 2, 3, 4, 5, 6], 6); // 5
+search([1, 2, 3, 4, 5, 6], 11); // -1
+```
+
+### 순진한 접근법
+
+평균 시간 복잡도 : O(N)
+
+```js
+function search(arr, n) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === n) return i;
+  }
+  return -1;
+}
+```
+
+### 리팩토링
+
+평균 시간 복잡도 : O(logN)
+
+```js
+function search(arr, n) {
+  let min = 0;
+  let max = arr.length - 1;
+
+  while (min <= max) {
+    let middle = Math.floor((min + max) / 2);
+    let current = arr[middle];
+    if (current === n) return middle;
+
+    if (current < n) min = middle + 1;
+    else max = middle - 1;
+  }
+
+  return -1;
+}
+```
+
+&#8594; 더 큰 데이터셋을 취해 작은 하위셋으로 분할하고 다른 부분은 무시하며 보편적으로 쓰이는 패턴이다.
