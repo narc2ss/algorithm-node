@@ -196,7 +196,7 @@ function countUniqueValues(arr) {
 
 ---
 
-## 슬라이딩 윈도우 패턴 (Sliding window)
+## 기준점 간 이동 패턴 (Sliding window)
 
 이 패턴은 배열이나 문자열과 같은 일련의 데이터를 입력하거나 특정 방식으로 연속적인 해당 데이터의 하위 집합을 찾는 경우에 유용하다.
 
