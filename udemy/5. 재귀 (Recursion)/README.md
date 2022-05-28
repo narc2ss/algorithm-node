@@ -147,3 +147,50 @@ console.log(factorial(4)); // 24
 ```
 
 이것이 통상적으로 팩토리얼을 재귀로 구현하는 방법이다.
+
+---
+
+## 통상적인 재귀의 잠재적 위험
+
+재귀함수를 작성하다 자주 발생하는 문제
+
+- 종료 조건이 없거나 잘못되는 경우
+
+  ```js
+  function factorial(num) {
+    // if (num === 1) return 1;
+    return num * factorial(num - 1);
+  }
+
+  console.log(factorial(4)); // Uncaught RangeError: Maximun call stack size exceeded
+  ```
+
+- 잘못된 값을 반환하는 경우
+
+  ```js
+  function factorial(num) {
+    if (num === 1) return 1;
+    // return num * factorial(num - 1);
+    return num * factorial(num);
+  }
+
+  console.log(factorial(4)); // Uncaught RangeError: Maximun call stack size exceeded
+  ```
+
+- 값을 반환하지 않는 경우
+
+  ```js
+  function factorial(num) {
+    // if (num === 1) return 1;
+    if (num === 1) console.log(num);
+    return num * factorial(num - 1);
+  }
+
+  console.log(factorial(4)); // Uncaught RangeError: Maximun call stack size exceeded
+  ```
+
+호출 스택이라는 개념은 모든 항목이 서로에게 의존하면서 계속 기다리는 것이며 마지막에는 어떤 값을 도출해서, 그 값을 돌려보내야 한다.
+
+재귀함수를 잘못 작성해서 마주치는 에러(`Uncaught RangeError: Maximun call stack size exceeded`)를 스택오버플로우(`Stack overflow`)라고 한다.
+
+&#8594; 스택 오버플로우는 재귀가 멈추지 않는다는 의미이다.
