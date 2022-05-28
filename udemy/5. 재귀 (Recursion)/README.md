@@ -194,3 +194,63 @@ console.log(factorial(4)); // 24
 재귀함수를 잘못 작성해서 마주치는 에러(`Uncaught RangeError: Maximun call stack size exceeded`)를 스택오버플로우(`Stack overflow`)라고 한다.
 
 &#8594; 스택 오버플로우는 재귀가 멈추지 않는다는 의미이다.
+
+---
+
+## Helper 메소드 재귀
+
+이제까지, 우리가 작성했던 모든 재귀함수는 팩토리얼처럼 단일 단독 함수(single standalone function)이었다.
+
+헬퍼 메소드 재귀는 조금 다르다. 실제로 무언가를 하지는 않으며 일종의 패턴이다.
+
+```js
+function outer(input) {
+  const outerScopedVariable = [];
+
+  function helper(helperInput) {
+    helper(helperInput--);
+  }
+
+  helper(input);
+
+  return outerScopedVariable;
+}
+```
+
+헬퍼 메소드는 두 개의 함수를 가지고 있으며 외부함수와 외부 함수 내부에 재귀함수가 존재한다.
+
+메인 외부함수는 개발자인 우리가 외부에서 호출한다.
+
+우리는 외부함수를 호출해서 무언가를 내부로 전달할 수 있다. 그리고 외부함수 안에서는 또 다른 함수가 정의되어 있다.
+
+그 함수는 호출이 되고, 재귀적으로 자기자신을 호출한다. 우리가 배열이나 테이터 목록 같은걸 컴파일 해야할 때 흔히 이렇게 작업한다.
+
+어느 배열에서 모든 홀수값을 수집하는 것과 같은 직업을 수행해야 한다면 헬퍼 메소드 재귀를 사용하는것이 좋다.
+
+```js
+function collectOddValue(arr) {
+  let result = [];
+
+  function helper(helperInput) {
+    if (helperInput.length === 0) return;
+
+    if (helperInput[0] % 2 !== 0) {
+      result.push(helperInput[0]);
+    }
+
+    helper(helperInput.slice(1));
+  }
+
+  helper(arr);
+
+  return result;
+}
+
+console.log(collectOddValue([1, 2, 3, 4, 5])); // [1, 3, 5]
+```
+
+이렇게 사용하는 이유는 뭘까?
+
+헬퍼 메소드 재귀의 외부함수 없이 내부에 배열을 선언하게 되면 배열이 초기화 되기 때문이다. 그렇다고 배열을 외부로 분리하게 된다면 의도치 않은 휴먼에러가 발생할 수 있다.
+
+&#8594; 헬퍼 메소드 재귀는 재귀적이지 않은 외부함수가 재귀적인 내부 함수를 호출하는 패턴이다.
