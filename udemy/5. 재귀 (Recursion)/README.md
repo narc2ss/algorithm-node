@@ -125,3 +125,25 @@ function factorial(num) {
 
 console.log(factorial(4)); // 24
 ```
+
+---
+
+## 재귀 호출로 팩토리얼 구현하기
+
+함수를 정의하는 것 외에, 제일 먼저 해야 하는 일은 종료 조건과 재귀 호출이 사용되는 더 작은 부분을 모두 이해하는 것이다.
+
+기본적으로, 반환값에는 두 가지의 서로 다른 구성요소가 있다.
+`10!`은 `factorial(9)`에 `10`을 곱한 값이다. 따라서 다른 입력값은 `num * facorial(num - 1)`이 될 것이다.
+
+팩토리얼은 곱셈의 결과이기 때문에 `0`까지 갈 필요가 없을 것이다. `factorial(1)`은 `1`이어야 하기 때문에 종료 조건은 `1`이 된다.
+
+```js
+function factorial(num) {
+  if (num === 1) return 1;
+  return num * factorial(num - 1);
+}
+
+console.log(factorial(4)); // 24
+```
+
+이것이 통상적으로 팩토리얼을 재귀로 구현하는 방법이다.
