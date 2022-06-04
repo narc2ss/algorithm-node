@@ -152,3 +152,42 @@ const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 원하는 요소를 바로 찾은 경우
 
 - `O(1)`
+
+---
+
+## 나이브 문자열 검색
+
+긴 문자열에서 짧은 문자열이 등장하는 횟수를 세려고 한다.
+
+| 긴 문자열  | 짧은 문자열 |
+| ---------- | ----------- |
+| wowomgzomg | omg         |
+
+기본적으로 가장 간단한 접근법 중 하나는 두 문자열을 나란히 놓고서 한 번에 하나의 문자를 비교하는 것이다.
+
+### 의사 코드
+
+- 긴 문자열의 길이 만큼 반복한다.
+  - 짧은 문자열 길이 만큼 반복한다.
+  - 문자가 다르다면 내부 반복을 중지한다.
+  - 문자가 같다면 짧은 문자열의 끝에 도달할 때까지 확인을 계속 한다.
+  - 내부 반복을 종료하고 일차히는 문자열을 찾은 경우 count를 증가한다.
+- 반복문이 종료되면 count값을 반환한다.
+
+내가 시도한 코드
+
+```js
+function naiveStringSearch(longStr, shortStr) {
+  let cnt = 0;
+  for (let i = 0; i < longStr.length; i++) {
+    for (let j = 0; j < shortStr.length; j++) {
+      if (longStr[i] !== shortStr[j]) continue;
+
+      if (j === shortStr.length - 1) cnt++;
+    }
+  }
+  return cnt;
+}
+
+console.log(naiveStringSearch("wowomgzomg", "omg")); // 2
+```
