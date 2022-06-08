@@ -144,7 +144,50 @@ const swap = (arr, idx1, idx2) => {
 ### 의사 코드
 
 - 숫자 배열을 인자로 받는 bubbleSort라는 함수를 정의한다.
-- 루프를 수행하는데 배열의 맨 끝에서 시작하고 맨 앞에서 끝난다.
-- 외부 루프안에는 내부 루프가 존재하며 처음부터 배열의 길이 - 1까지 실행한다.
-- 현재 원소가 다음원소보다 크다면 교환을 한다.
+- 처음부터 끝까지 i라는 변수로 루프를 시작한다.
+- 처음부터 i - 1까지 j라는 변수로 내부 루프를 시작한다.
+- arr[j]가 arr[j+1]보다 크다면 두 값을 swap한다.
 - 반복이 끝났다면 배열을 반환한다.
+
+---
+
+## 버블 정렬 : 구현
+
+### 내가 시도한 코드
+
+```js
+function bubbleSort(arr) {
+  let temp;
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length - i; j++) {
+      if (arr[j] > arr[j + 1]) {
+        temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+  return arr;
+}
+
+console.log(bubbleSort([37, 45, 29, 8])); // [ 8, 29, 37, 45 ]
+```
+
+### 솔루션
+
+```js
+function bubbleSort(arr) {
+  const swap = (arr, idx1, idx2) => {
+    [arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]];
+  };
+
+  for (let i = arr.length; i > 0; i--) {
+    for (let j = 0; j < i - 1; j++) {
+      if (arr[j] > arr[j + 1]) swap(arr, j, j + 1);
+    }
+  }
+  return arr;
+}
+
+console.log(bubbleSort([37, 45, 29, 8])); // [ 8, 29, 37, 45 ]
+```
