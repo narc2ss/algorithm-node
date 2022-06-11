@@ -191,3 +191,41 @@ function bubbleSort(arr) {
 
 console.log(bubbleSort([37, 45, 29, 8])); // [ 8, 29, 37, 45 ]
 ```
+
+---
+
+## 버블 정렬 : 최적화
+
+버블 정렬시 데이터가 거의 정렬이 된 상태이거나 이미 정렬이 완료됐다면, 버블 정렬을 할 필요가 없다.
+
+위의 경우 정렬이 되었지만 코드는 계속 실행될 것이다.
+
+만약에 배열의 길이가 길다면 긴 소요시간으로 인하여 문제가 될 것이다.
+
+만약 루프가 마지막으로 실행되었을 때 swap을 했는가를 판단하여 정렬이 완료되었는지 알 수 있다.
+
+교환을 하지 않았다면, 다음번에도 교환을 하지 않을 것이기 때문이다.
+
+```js
+function bubbleSort(arr) {
+  const swap = (arr, idx1, idx2) => {
+    [arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]];
+  };
+
+  let noSwap = true;
+  for (let i = arr.length; i > 0; i--) {
+    noSwap = true;
+    for (let j = 0; j < i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        swap(arr, j, j + 1);
+        noSwap = false;
+      }
+    }
+
+    if (noSwap) break;
+  }
+  return arr;
+}
+
+console.log(bubbleSort([37, 45, 29, 8])); // [ 8, 29, 37, 45 ]
+```
