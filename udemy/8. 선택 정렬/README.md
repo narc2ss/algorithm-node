@@ -42,3 +42,27 @@ function selectionSort(arr) {
 
 selectionSort([5, 4, 3, 2, 1]); // [1, 2, 3, 4, 5]
 ```
+
+---
+
+## 선택 정렬 : 구현
+
+```js
+function selectionSort(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    var lowest = i;
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[lowest]) lowest = j;
+    }
+
+    if (i !== lowest) {
+      var temp = arr[i];
+      arr[i] = arr[lowest];
+      arr[lowest] = temp;
+    }
+  }
+  return arr;
+}
+
+selectionSort([5, 4, 3, 2, 1]); // [1, 2, 3, 4, 5]
+```
