@@ -100,3 +100,60 @@ function merge(arr1, arr2) {
 
 console.log(merge([1, 2, 3], [7, 8, 9])); // [ 1, 2, 3, 7, 8, 9, ]
 ```
+
+---
+
+## 합병 정렬 작성하기 1부
+
+이제 합병 정렬의 정렬 부분이다. 그리고 코드 자체는 꽤 짧다.
+
+문제는 개념적으로 조금 이해하기 어렵다는 것이다.
+
+대부분의 합병 정렬 구현시 재귀를 사용하기 때문이다.
+
+### 합병 정렬의 의사코드
+
+- 배열의 원소가 하나 또는 없을 때 까지 배열을 나눈다.
+- 전체 길이의 배열을 가질 때 까지 합병 함수를 사용해 다시 합친다.
+- 배열을 다시 합쳤으면 가장 마지막에 합병된 배열을 반환한다.
+
+---
+
+## 합병 정렬 작성하기 2부
+
+```js
+function merge(arr1, arr2) {
+  let results = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < arr1.length && j < arr2.length) {
+    if (arr2[j] > arr1[i]) {
+      results.push(arr1[i]);
+      i++;
+    } else {
+      results.push(arr2[j]);
+      j++;
+    }
+  }
+  while (i < arr1.length) {
+    results.push(arr1[i]);
+    i++;
+  }
+  while (j < arr2.length) {
+    results.push(arr2[j]);
+    j++;
+  }
+  return results;
+}
+
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+  return merge(left, right);
+}
+
+console.log(mergeSort([8, 1, 6, 2, 36, 82, 34])); // [ 1, 2, 6, 8, 34, 36, 82 ]
+```
