@@ -78,3 +78,46 @@ pivot([4, 8, 2, 1, 5, 7, 6, 3]); // [ 3, 2, 1, 4, 5, 7, 6, 8 ]
 ```
 
 &#8594; `pivot`함수를 수행하면 피벗은 자신의 위치에 존재하게 되고 피벗을 기준으로 순서와 상관없이 왼쪽은 작은값, 오른쪽은 큰값이 존재하게 된다
+
+---
+
+## Quicksort implemented
+
+### Quicksort Pseudocode
+
+- Call the pivot helper on the array
+- When the helper returns to you the updated pivot index, recursively call the pivot helper on the subarray to the left of that index, and the subarray to the right of that index
+- Your base case occurs when you consider a subarray with less than 2 elements
+
+```js
+function pivot(arr, start = 0, right = arr.length + 1) {
+  let pivot = arr[start],
+    swapIndex = start,
+    temp;
+
+  for (let i = start + 1; i < arr.length; i++) {
+    if (pivot > arr[i]) {
+      swapIndex++;
+      temp = arr[i];
+      arr[i] = arr[swapIndex];
+      arr[swapIndex] = temp;
+    }
+  }
+
+  temp = arr[swapIndex];
+  arr[swapIndex] = arr[start];
+  arr[start] = temp;
+  return swapIndex;
+}
+
+function quickSort(arr, left = 0, right = arr.length - 1) {
+  if (left < right) {
+    const pivotIndex = pivot(arr, left, right);
+    quickSort(arr, left, pivotIndex - 1);
+    quickSort(arr, pivotIndex + 1, right);
+  }
+  return arr;
+}
+
+quickSort([4, 5, 7, 8, 3, 2, 1, 6]); // [ 1, 2, 3, 4, 5, 6, 7, 8 ]
+```
