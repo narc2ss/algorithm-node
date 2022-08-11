@@ -121,3 +121,51 @@ function quickSort(arr, left = 0, right = arr.length - 1) {
 
 quickSort([4, 5, 7, 8, 3, 2, 1, 6]); // [ 1, 2, 3, 4, 5, 6, 7, 8 ]
 ```
+
+---
+
+## Big O of Quicksort
+
+| Time Complexity (Best) | Time Complexity (Average) | Time Complexity (Worst) | Space Complexity |
+| ---------------------- | ------------------------- | ----------------------- | ---------------- |
+| O(n log n)             | O(n log n)                | O(n^2)                  | O(log n)         |
+
+### Best Case
+
+```json
+[8, 5, 6, 1, 3, 7, 2, 4, 12, 13, 14, 11, 9, 15, 10]
+
+pivot: 8
+[4, 5, 6, 1, 3, 7, 2] [12, 13, 14, 11, 9, 15, 10]
+
+pivot: 4, 12
+[2, 1, 3] [6, 7, 5] [10, 11, 9] [14, 15, 13]
+
+pivot: 2, 6, 10, 14
+1 3 5 7 9 11 13 15
+```
+
+O(log n) decompositions \* O(n) comparisions per decomposition
+&#8594; O(n log n)
+
+### Worst Case
+
+```json
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+pivot: 1
+[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+
+pivot: 2
+[3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]]
+
+(...)
+
+pivot: 13
+[14, 15]
+
+pivot: 14
+[15]
+```
+
+O(n) decompositions \* O(n) comparisions per decompositions &#8594; O(n^2)
