@@ -63,3 +63,15 @@ mostDigits([1234, 56, 8]); // 4
 mostDigits([1, 1, 11111, 1]); // 5
 mostDigits([12, 34, 56, 78]); // 2
 ```
+
+---
+
+## Radix sort Pseudocode
+
+- Define a function that accepts list of numbers
+- Figure out how many digits the largest number has
+- Loop form k = 0 up to this largest number of digits
+  - Create buckets for each digit (0 to 9)
+  - place each number in the crresponding bucket based on its kth digit
+- Replace out sxisting array with values in our buckets, starting with 0 and going up to 9
+- return list at the end
