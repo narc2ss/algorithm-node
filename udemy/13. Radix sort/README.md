@@ -41,11 +41,11 @@ function getCount(num) {
   return String(Math.abs(num)).length;
 }
 
-getDigit(1); // 1
-getDigit(0); // 1
-getDigit(12); // 2
-getDigit(134); // 3
-getDigit(-134); // 3
+getCount(1); // 1
+getCount(0); // 1
+getCount(12); // 2
+getCount(134); // 3
+getCount(-134); // 3
 ```
 
 mostDigits(nums) - Given an array of numbers, returns the number of digits in the largest numbers in the list
@@ -75,3 +75,36 @@ mostDigits([12, 34, 56, 78]); // 2
   - place each number in the crresponding bucket based on its kth digit
 - Replace out sxisting array with values in our buckets, starting with 0 and going up to 9
 - return list at the end
+
+---
+
+## Implementation
+
+```js
+function getDigit(num, place) {
+  return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
+}
+
+function mostDigits(arr) {
+  let maxDigits = 0;
+  for (let i = 0; i < arr.length; i++) {
+    maxDigits = Math.max(maxDigits, getCount(arr[i]));
+  }
+  return maxDigits;
+}
+
+function radixSort(nums) {
+  const maxDigitCount = mostDigits(nums);
+  for (let k = 0; k < maxDigitCount; k++) {
+    const digitBuckets = Array.from({ length: 10 }, () => []);
+    for (let i = 0; i < nums.length; i++) {
+      const digit = getDigit(nums[i], k);
+      digitBuckets[digit].push(nums[i]);
+    }
+    nums = [].concat(...digitBuckets);
+  }
+  return nums;
+}
+
+radixSort([32, 25, 343, 128, 1429, 2443]); // [ 25, 32, 128, 343, 1429, 2443 ]
+```
