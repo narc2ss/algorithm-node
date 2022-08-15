@@ -108,3 +108,14 @@ function radixSort(nums) {
 
 radixSort([32, 25, 343, 128, 1429, 2443]); // [ 25, 32, 128, 343, 1429, 2443 ]
 ```
+
+---
+
+## Big O of Radix sort
+
+| Time Complextity(Best) | Time Complexity (Average) | Time Complexity (Worst) | Space Complexity |
+| ---------------------- | ------------------------- | ----------------------- | ---------------- |
+| O(nk)                  | O(nk)                     | O(nk)                   | O(n + k)         |
+
+- n - length of array
+- k - number of digits(average)
