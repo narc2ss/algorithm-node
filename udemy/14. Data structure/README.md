@@ -20,3 +20,22 @@ Differnt data structures excel at different things. Some are highly specialized,
 - Need an ordered list with fast inserts/removals at the beginning and end? &#8594; Use a **linked list**
 - Web scraping nested HTML? &#8594; Use a **tree**
 - Need to write a scheduler? &#8594; Use a **binary heap**
+
+---
+
+## ES6 Class syntax overview
+
+### Objectives
+
+- Explain what a class is
+- Understand how JavaScript implements the idea of classes
+- Define terms like abstraction, encapsulation and polymorphism
+- Use ES6 classes to implement data structures
+
+### What is a class?
+
+A blueprint for creating objects with pre-defined properties and methods
+
+### Why do we need to learn this?
+
+We're hoing to impolement data structures as classes!
