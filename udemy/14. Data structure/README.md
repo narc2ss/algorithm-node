@@ -72,3 +72,23 @@ class Student {
 let firstStudent = new Student("Colt", "Steele");
 let SecondStudent = new Student("Blue", "Steele");
 ```
+
+---
+
+## Instance Methods
+
+```js
+class Student {
+  constructor(firstname, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  fullName() {
+    return `Your full name is ${this.firstName} ${this.lastName}`;
+  }
+}
+
+let firstStudent = new Student("Colt", "Steele");
+firstStudent.fullName(); // Your full name is Colt Steele
+```
