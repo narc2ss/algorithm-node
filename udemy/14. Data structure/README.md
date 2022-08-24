@@ -92,3 +92,55 @@ class Student {
 let firstStudent = new Student("Colt", "Steele");
 firstStudent.fullName(); // Your full name is Colt Steele
 ```
+
+---
+
+## Class Methods
+
+```js
+class Student {
+  constructor(firstname, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  fullName() {
+    return `Your full name is ${this.firstName} ${this.lastName}`;
+  }
+
+  static enrollStudents(...students) {
+    // maybe send an email here
+  }
+
+  let firstStudent = new Student('Colt', 'Steele');
+  let secondStudent = new Student('Blue', 'Steele');
+
+  Student.enrollStudents([firstStudent, secondStudent]);
+}
+```
+
+### How we'll be using classes
+
+```js
+class DataStructure() {
+  // What default properties should it have?
+}
+someInstanceMethod() {
+  // What should each object created from this class be able to do?
+}
+```
+
+- We will be using the **constructor** ans **instance methods** quite a bit
+- We will almost **never** be using **static** methods
+
+### One gatcha with 'this'
+
+Inside all of our **instance** methods and **constructor**, the keyword 'this' refers to the object created from that class (also known as an **instance**)
+
+### Recap
+
+- Classes are blueprints that when created make objects known as **instance**
+- Classes are created with the **new** keyword
+- The **constructor** function is a special function that gets run when the class is instantiated
+- Instance methods can be added to classes similar to methods in objects
+- Class methods can be added using the **static** keyword
